@@ -1,8 +1,9 @@
-import Image from "next/image";
 import { Terminal } from "@/components/terminal";
 import { DiagonalDivider } from "@/components/diagonal-divider";
 import Link from "next/link";
 import { Clock } from "@/components/clock";
+import { FallingLeaves } from "@/components/falling-leaves";
+import { ProfileAvatar } from "@/components/profile-avatar";
 
 export default function Home() {
   return (
@@ -20,28 +21,11 @@ export default function Home() {
         className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,#05070a_100%)]"
       />
 
+      <FallingLeaves />
+
       <section className="relative z-10 flex w-full max-w-6xl flex-col items-center gap-10 md:flex-row md:justify-center md:gap-2 lg:gap-6">
         <div className="flex shrink-0 flex-col items-center gap-3">
-          <div className="relative">
-            <div
-              aria-hidden
-              className="absolute inset-0 scale-110 rounded-full bg-cyan-500/25 blur-2xl"
-            />
-            <div className="relative rounded-full bg-gradient-to-tr from-cyan-400 via-sky-500 to-indigo-500 p-[2px] shadow-[0_0_50px_-5px_rgba(34,211,238,0.5)]">
-              <div className="rounded-full bg-[#05070a] p-1.5">
-                <div className="relative h-40 w-40 overflow-hidden rounded-full sm:h-48 sm:w-48 lg:h-56 lg:w-56">
-                  <Image
-                    src="/image.png"
-                    alt="Portrait of melon"
-                    width={1000}
-                    height={1100}
-                    priority
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+          <ProfileAvatar />
           <span className="font-mono text-xs tracking-wide text-zinc-500">
             credit: <Link href="https://x.com/Terenry_" target="_blank" rel="noopener noreferrer">
               @terenry

@@ -142,6 +142,9 @@ export const CONTACT_README = `# Contact
 Email
 melonberryie@gmail.com
 
+Discord:
+melon.pika
+
 GitHub
 https://github.com/xmasdev
 
