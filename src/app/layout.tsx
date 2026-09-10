@@ -15,6 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "melon",
   description: "Systems & backend engineer. Portfolio of melon.",
+  icons: { icon: "/image.png" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

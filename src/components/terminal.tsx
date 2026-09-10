@@ -34,6 +34,7 @@ export function Terminal() {
   const [awaiting, setAwaiting] = useState<string | null>(null);
   const [historyCursor, setHistoryCursor] = useState<number | null>(null);
   const [completion, setCompletion] = useState<CompletionState | null>(null);
+  const [caret, setCaret] = useState(0);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -91,9 +92,19 @@ export function Terminal() {
     });
   };
 
+  const updateInput = (value: string) => {
+    setInput(value);
+    setCaret(value.length);
+  };
+
+  const syncCaret = () => {
+    const node = inputRef.current;
+    if (node) setCaret(node.selectionStart ?? 0);
+  };
+
   const submit = () => {
     const value = input;
-    setInput("");
+    updateInput("");
     setHistoryCursor(null);
     setCompletion(null);
 
@@ -134,11 +145,11 @@ export function Terminal() {
         draftRef.current = input;
         const index = history.length - 1;
         setHistoryCursor(index);
-        setInput(history[index]);
+        updateInput(history[index]);
       } else if (historyCursor > 0) {
         const index = historyCursor - 1;
         setHistoryCursor(index);
-        setInput(history[index]);
+        updateInput(history[index]);
       }
       return;
     }
@@ -151,7 +162,7 @@ export function Terminal() {
       setInput(history[index]);
     } else {
       setHistoryCursor(null);
-      setInput(draftRef.current);
+      updateInput(draftRef.current);
     }
   };
 
@@ -159,7 +170,7 @@ export function Terminal() {
     if (completion && completion.candidates.length > 0) {
       const index = (completion.index + 1) % completion.candidates.length;
       setCompletion({ ...completion, index });
-      setInput(completion.prefix + completion.candidates[index].value);
+      updateInput(completion.prefix + completion.candidates[index].value);
       return;
     }
 
@@ -170,13 +181,13 @@ export function Terminal() {
 
     if (result.candidates.length === 1) {
       const candidate = result.candidates[0];
-      setInput(prefix + candidate.value + (candidate.isDirectory ? "" : " "));
+      updateInput(prefix + candidate.value + (candidate.isDirectory ? "" : " "));
       setCompletion(null);
       return;
     }
 
     setCompletion({ candidates: result.candidates, index: 0, prefix });
-    setInput(prefix + result.candidates[0].value);
+    updateInput(prefix + result.candidates[0].value);
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -199,6 +210,8 @@ export function Terminal() {
       cycleCompletion();
     }
   };
+
+  const caretIndex = Math.min(caret, input.length);
 
   return (
     <div
@@ -292,11 +305,25 @@ export function Terminal() {
               ref={inputRef}
               value={input}
               onChange={(event) => {
-                setInput(event.target.value);
+                const value = event.target.value;
+                setInput(value);
+                setCaret(event.target.selectionStart ?? value.length);
                 setHistoryCursor(null);
                 setCompletion(null);
               }}
               onKeyDown={handleKeyDown}
+              onKeyUp={(event) => {
+                if (
+                  event.key === "ArrowLeft" ||
+                  event.key === "ArrowRight" ||
+                  event.key === "Home" ||
+                  event.key === "End"
+                ) {
+                  syncCaret();
+                }
+              }}
+              onClick={syncCaret}
+              onSelect={syncCaret}
               autoComplete="off"
               autoCapitalize="off"
               autoCorrect="off"
@@ -305,9 +332,12 @@ export function Terminal() {
               className="absolute inset-0 w-full bg-transparent text-transparent caret-transparent outline-none"
             />
             <span className="pointer-events-none whitespace-pre-wrap break-all text-zinc-100">
-              {input}
+              {input.slice(0, caretIndex)}
+              <span className="animate-cursor">
+                {input[caretIndex] ?? "\u00A0"}
+              </span>
+              {input.slice(caretIndex + 1)}
             </span>
-            <Cursor />
           </div>
         </form>
       </div>
@@ -332,11 +362,5 @@ function ProgramPrompt({ prompt }: { prompt: string }) {
       <span className="text-cyan-300">{prompt}</span>
       <span className="text-zinc-600">&gt;</span>
     </span>
-  );
-}
-
-function Cursor() {
-  return (
-    <span className="ml-0.5 inline-block h-4 w-[0.55em] translate-y-[2px] animate-blink bg-cyan-300/90 sm:h-5" />
   );
 }
