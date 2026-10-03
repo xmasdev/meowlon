@@ -5,13 +5,13 @@ import type { CSSProperties } from "react";
 const LEAF_COUNT = 16;
 
 const COLORS = [
-  "#7b5e3b",
-  "#8a6b47",
-  "#6d5236",
-  "#9a7448",
-  "#5f4932",
-  "#a17b4a",
-  "#835f3a",
+  "#9a5a3a",
+  "#b8683f",
+  "#7d4a34",
+  "#c87a48",
+  "#8c4a3c",
+  "#a8664a",
+  "#6e4434",
 ];
 
 const LEAF_PATH =
@@ -36,9 +36,10 @@ const WRINKLES =
   "M12.5 6.8 C13.4 8 13.7 9.2 13.5 10.5 " +
   "M19.5 6.8 C18.6 8 18.3 9.2 18.5 10.5";
 
+// Rounded so server and client serialize identical style strings.
 function seeded(index: number, salt: number): number {
   const value = Math.sin(index * 127.1 + salt * 311.7) * 43758.5453;
-  return value - Math.floor(value);
+  return Math.round((value - Math.floor(value)) * 1000) / 1000;
 }
 
 export function FallingLeaves() {

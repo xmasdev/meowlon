@@ -22,7 +22,7 @@ const TIME_FORMAT = new Intl.DateTimeFormat("en-GB", {
   hour12: false,
 });
 
-export function Clock() {
+export function Clock({ className }: { className?: string }) {
   const seconds = useSyncExternalStore(
     subscribe,
     getSnapshot,
@@ -32,8 +32,11 @@ export function Clock() {
   const time = seconds === null ? "--:--:--" : TIME_FORMAT.format(seconds * 1000);
 
   return (
-    <span className="font-mono text-2xl font-bold tracking-widest text-white tabular-nums sm:text-3xl">
+    <time
+      suppressHydrationWarning
+      className={`font-mono font-bold tabular-nums tracking-[0.12em] text-peach ${className ?? ""}`}
+    >
       {time}
-    </span>
+    </time>
   );
 }

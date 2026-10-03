@@ -1,153 +1,186 @@
-export const HOME_README = `# melon
+export const HOME_README = `# ~
 
-This portfolio is a virtual Linux environment.
-Explore with \`ls\`, \`cd\`, and \`cat\`.
+hi, i'm melon ^^
+this whole site is a tiny linux box. poke around with
+\`ls\`, \`cd\` and \`cat\`.
 
-  about/       who I am
-  projects/    things I have built
-  experience/  where I have worked
-  skills/      what I work with
-  contact/     how to reach me
+  about/       who i am
+  projects/    stuff i made
+  experience/  where i've worked
+  skills/      what i work with
+  contact/     say hi
 `;
 
-export const ABOUT_README = `# About
+export const ABOUT_README = `# about
 
-# Melon
+hi, i'm melon :3
 
-Hi,
+  student · furry · pokémon enjoyer
+  (eevee + its evolutions, pikachu,
+  gen 1 in general)
 
-I'm a student who likes building things and understanding
-what happens underneath them.
+i like making stuff from scratch. it's
+fun, and it teaches you a lot along the
+way.
 
-I spend most of my time working with backend systems, networking, databases,
-Linux, and lower-level software. I especially enjoy projects where I have to
-understand the system rather than just use an abstraction.
+mostly backend, networking, databases
+and linux stuff.
 
-This terminal is my portfolio.
-
-Use \`help\` to see what you can explore.
+lost? type \`help\`, or tap the shortcuts
+below.
 `;
 
-export const PROJECTS_README = `# Projects
+export const PROJECTS_README = `# projects
 
-Projects I've made, mostly these are going to be things made from scratch, cuz I really like understanding how things work 
+things i made, mostly from scratch, cuz that's the
+part i enjoy.
 
-- cantaloupe - BitTorrent client in Go
-- webp2p - TCP-like reliable transport over UDP for peer to peer communication
-- melonlang - custom programming language interpreter in Go
-- quickcommerce-scraper = A quickcommerce price comparison platform
-- melonpost - full-stack video sharing platform
+- cantaloupe       bittorrent client in go
+- webp2p           tcp-ish reliable transport over udp
+- melonlang        my own programming language
+- quickcommerce    blinkit vs zepto price comparison
+- melonpost        full-stack video sharing platform
+- random things    a neural net and a chess engine
 
-Open a project directory to learn more.
+each one has a README. for example:
+  cat ~/projects/cantaloupe/README.md
 `;
 
 export const PROJECTS: Record<string, string> = {
   cantaloupe: `# cantaloupe
 https://github.com/xmasdev/cantaloupe
-A BitTorrent client written in Go.
 
-Built to understand peer-to-peer file sharing and the BitTorrent protocol from the ground up.
+a bittorrent client, written in go.
 
-Tech: Go, BitTorrent, Wails
+built it to figure out how peer-to-peer file sharing
+actually works, protocol and all, from the ground up.
+
+tech: go, bittorrent, wails
 `,
 
   webp2p: `# webp2p
 https://github.com/xmasdev/webp2p
-TCP-like reliable transport over UDP.
 
-Designed a reliable transport protocol with acknowledgements, retransmissions, packet framing, ordered delivery, UDP hole punching across NAT boundaries, sliding-window flow control, and concurrent message handling.
+a reliable, tcp-like transport built on top of udp,
+so two peers can talk to each other directly.
 
-Tech: Go, UDP Sockets, NAT Traversal
+what's inside:
+- acks and retransmissions
+- packet framing and ordered delivery
+- sliding-window flow control
+- udp hole punching to get through NAT
+- concurrent message handling
+
+tech: go, udp sockets, nat traversal
 `,
 
   melonlang: `# melonlang
 https://github.com/xmasdev/melonlang
 
-A custom programming language interpreter written in Go.
+a programming language. yes, it's named after me.
+the interpreter is written in go.
 
-Supports arithmetic and logical expressions, variables, labels, conditional execution, and goto statements.
+it does arithmetic and logic expressions, variables,
+labels, conditionals, and goto (yes, goto).
 
-Implemented lexical analysis, parsing, AST construction, runtime evaluation, a REPL, and execution of .mel files.
+under the hood: lexer, parser, AST, and an evaluator,
+plus a REPL and support for running .mel files.
 
-Tech: Go, Compiler / Interpreter Design
+tech: go, interpreter design
 `,
 
   "random things": `# random things
 
-## Neural Network
-Implemented a neural network from scratch, including forward propagation, backpropagation, and gradient descent.
+small stuff that didn't need its own folder.
 
-## Chess Engine
-Built a chess engine with legal move generation, minimax search, and alpha-beta pruning.
+## neural network
+forward propagation, backpropagation and gradient
+descent, implemented from scratch.
 
-Tech: Python, TensorFlow
+## chess engine
+legal move generation, minimax search, and
+alpha-beta pruning.
+
+tech: python, tensorflow
 `,
 
   quickcommerce: `# quickcommerce
 https://github.com/xmasdev/quickcommerce-scraper
 
-A price comparison platform for quick-commerce services.
+compares prices across quick-commerce apps
+(blinkit and zepto).
 
-Built a Python data-extraction pipeline for Blinkit and Zepto by intercepting API calls through a headless Playwright browser and asynchronous automation.
+how it gets the data: a headless playwright browser
+intercepts the apps' api calls, driven by async
+automation. a python rest api serves the prices to a
+react frontend, which handles the client-side js and
+session cookies.
 
-Exposed pricing through a Python REST API with a React frontend, including automated client-side JavaScript and session-cookie handling.
-
-Tech: Python, Playwright, JavaScript, React
+tech: python, playwright, javascript, react
 `,
 
   melonpost: `# melonpost
-https//github.com/xmasdev/melonpost-frontend
-https//github.com/xmasdev/melonpost-backend
+https://github.com/xmasdev/melonpost-frontend
+https://github.com/xmasdev/melonpost-backend
 
-A full-stack video sharing platform.
+a full-stack video sharing platform.
 
-Built a JWT-authenticated platform with a React / Next.js frontend and a REST API backend using Node.js, Express, and MongoDB.
+jwt auth, a react / next.js frontend, and a rest api
+backend on node.js, express and mongodb.
 
-Tech: React, Next.js, Node.js, Express, MongoDB
+tech: react, next.js, node.js, express, mongodb
 `,
 };
 
-export const EXPERIENCE_README = `# Experience
+export const EXPERIENCE_README = `# experience
 
-## Intuit - SWE Intern
-Bangalore · May 2026 - July 2026
+intuit · swe intern · bangalore
 
-- Built Python tools and automation to evaluate outbound campaigns and pull useful insights from campaign data.
-- Built MCP-based AI tools and agent integrations to connect MCPs with internal data, APIs, and knowledge bases.
+  campaigns   python tools + automation
+              to evaluate outbound
+              campaigns and dig
+              insights out of the data
+
+  ai tools    MCP-based tools and agent
+              integrations, wiring MCPs
+              into internal data, APIs
+              and knowledge bases
 `;
 
-export const SKILLS_README = `# Skills
+export const SKILLS_README = `# skills
 
-## Languages
-Python, Go, JavaScript, C++, SQL
+  languages   python, go, javascript,
+              c++, sql
 
-## Backend & APIs
-Node.js, Express, REST APIs, Asynchronous Programming
+  backend     node.js, express,
+              rest apis,
+              async programming
 
-## Frontend
-React.js, Next.js, HTML, CSS
+  frontend    react, next.js, html, css
 
-## Databases & Tools
-MongoDB, PostgreSQL, Linux / Unix, Git, GitHub, Databricks, Playwright
+  databases   mongodb, postgresql
 
-## AI & ML
-Model Context Protocol (MCP), AI Agents & Tooling, TensorFlow, Neural Networks
+  tools       linux / unix, git, github,
+              databricks, playwright
 
-## Core Concepts
-Concurrent Programming, Computer Networks, Data Structures & Algorithms, Operating Systems, DBMS
+  ai / ml     MCP, ai agents & tooling,
+              tensorflow,
+              neural networks
+
+  concepts    concurrency,
+              computer networks,
+              operating systems, dbms,
+              data structures &
+              algorithms
 `;
 
-export const CONTACT_README = `# Contact
+export const CONTACT_README = `# contact
 
-Email
-melonberryie@gmail.com
+say hi ^^ i'm friendly, promise.
 
-Discord:
-melon.pika
+email     melonberryie@gmail.com
+discord   melon.pika
+github    https://github.com/xmasdev
 
-GitHub
-https://github.com/xmasdev
-
-Feel free to reach out ^^
+code stuff or pokémon stuff, either works :3
 `;
-

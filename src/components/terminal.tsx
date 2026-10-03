@@ -11,7 +11,7 @@ import { explorerApi } from "@/lib/explorers/client";
 
 type Entry =
   | { kind: "startup"; output: string[] }
-  | { kind: "command"; command: string; output: string[] }
+  | { kind: "command"; command: string; cwd: string; output: string[] }
   | { kind: "input"; prompt: string; value: string }
   | { kind: "output"; output: string[] };
 
@@ -20,6 +20,32 @@ type CompletionState = {
   index: number;
   prefix: string;
 };
+
+type Shortcut = { id: string; label: string; command: string };
+
+const SHORTCUTS: Shortcut[] = [
+  { id: "about", label: "about", command: "cat ~/about/README.md" },
+  { id: "projects", label: "projects", command: "cat ~/projects/README.md" },
+  {
+    id: "experience",
+    label: "experience",
+    command: "cat ~/experience/README.md",
+  },
+  { id: "skills", label: "skills", command: "cat ~/skills/README.md" },
+  { id: "contact", label: "contact", command: "cat ~/contact/README.md" },
+];
+
+const HELP_SHORTCUT: Shortcut = { id: "help", label: "help", command: "help" };
+
+const TYPE_DELAY_MS = 22;
+
+function prefersReducedMotion(): boolean {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function hasFinePointer(): boolean {
+  return window.matchMedia("(pointer: fine)").matches;
+}
 
 export function Terminal() {
   const [session] = useState(() => {
@@ -35,19 +61,26 @@ export function Terminal() {
   const [historyCursor, setHistoryCursor] = useState<number | null>(null);
   const [completion, setCompletion] = useState<CompletionState | null>(null);
   const [caret, setCaret] = useState(0);
+  const [cwd, setCwd] = useState(session.shell.state.cwd);
+  const [typing, setTyping] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const draftRef = useRef("");
+  const typingTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    inputRef.current?.focus();
+    if (hasFinePointer()) inputRef.current?.focus();
+    return () => {
+      if (typingTimer.current) clearTimeout(typingTimer.current);
+    };
   }, []);
 
   useEffect(() => {
     const node = scrollRef.current;
     if (node) node.scrollTop = node.scrollHeight;
-  }, [entries, completion, awaiting]);
+  }, [entries, completion, awaiting, input]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -102,8 +135,7 @@ export function Terminal() {
     if (node) setCaret(node.selectionStart ?? 0);
   };
 
-  const submit = () => {
-    const value = input;
+  const submit = (value: string) => {
     updateInput("");
     setHistoryCursor(null);
     setCompletion(null);
@@ -120,7 +152,7 @@ export function Terminal() {
 
     setEntries((previous) => [
       ...previous,
-      { kind: "command", command: value, output: [] },
+      { kind: "command", command: value, cwd: session.shell.state.cwd, output: [] },
     ]);
 
     void session.shell
@@ -131,7 +163,41 @@ export function Terminal() {
       .then((result) => {
         if (result.clear) setEntries([]);
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setCwd(session.shell.state.cwd));
+  };
+
+  const runShortcut = (shortcut: Shortcut) => {
+    if (typing || awaiting !== null) return;
+
+    setActive(shortcut.id);
+    setCompletion(null);
+    setHistoryCursor(null);
+
+    const finish = () => {
+      setTyping(false);
+      submit(shortcut.command);
+      if (hasFinePointer()) inputRef.current?.focus();
+    };
+
+    if (prefersReducedMotion()) {
+      finish();
+      return;
+    }
+
+    setTyping(true);
+    let length = 0;
+    const step = () => {
+      length += 1;
+      updateInput(shortcut.command.slice(0, length));
+      if (length < shortcut.command.length) {
+        typingTimer.current = setTimeout(step, TYPE_DELAY_MS);
+      } else {
+        typingTimer.current = setTimeout(finish, TYPE_DELAY_MS * 6);
+      }
+    };
+    updateInput("");
+    typingTimer.current = setTimeout(step, TYPE_DELAY_MS);
   };
 
   const navigateHistory = (direction: -1 | 1) => {
@@ -159,7 +225,7 @@ export function Terminal() {
     if (historyCursor < history.length - 1) {
       const index = historyCursor + 1;
       setHistoryCursor(index);
-      setInput(history[index]);
+      updateInput(history[index]);
     } else {
       setHistoryCursor(null);
       updateInput(draftRef.current);
@@ -191,7 +257,7 @@ export function Terminal() {
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (awaiting !== null) return;
+    if (awaiting !== null || typing) return;
 
     if (event.key === "ArrowUp") {
       event.preventDefault();
@@ -212,59 +278,54 @@ export function Terminal() {
   };
 
   const caretIndex = Math.min(caret, input.length);
+  const home = session.shell.state.home;
+  const shortcutsDisabled = typing || awaiting !== null;
 
   return (
-    <div
-      onClick={() => inputRef.current?.focus()}
-      className="relative w-full max-w-xl overflow-hidden rounded-2xl border border-white/10 bg-[#0a0f16]/85 shadow-[0_0_0_1px_rgba(255,255,255,0.03),0_30px_80px_-20px_rgba(34,211,238,0.25)] backdrop-blur-xl"
-    >
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent" />
-
-      <div className="flex items-center gap-2 border-b border-white/5 bg-white/[0.02] px-4 py-3">
-        <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
-        <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
-        <span className="h-3 w-3 rounded-full bg-[#28c840]" />
-        <span className="ml-3 font-mono text-xs text-zinc-500">
-          melon@arch: ~
+    <div className="relative w-full min-w-0 overflow-hidden rounded-xl border border-peach/10 bg-dusk-850/90 shadow-[0_40px_80px_-30px_rgba(7,11,21,0.9),0_18px_50px_-24px_rgba(200,78,65,0.35)] backdrop-blur-md">
+      <div className="flex items-center gap-3 border-b border-peach/[0.07] bg-dusk-900/60 px-4 py-2.5 font-mono text-xs">
+        <span className="text-ink-dim">
+          melon@arch: <span className="text-ink-muted">{displayPath(cwd, home)}</span>
         </span>
-        <span className="ml-auto font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-600">
-          bash
-        </span>
+        <span className="ml-auto text-ink-dim">bash</span>
       </div>
 
       <div
         ref={scrollRef}
-        className="terminal-scroll min-h-[220px] max-h-[420px] space-y-2 overflow-y-auto px-5 py-6 font-mono text-sm sm:px-7 sm:py-8 sm:text-base"
+        onClick={() => inputRef.current?.focus()}
+        className="terminal-scroll h-[clamp(280px,52vh,460px)] cursor-text space-y-2 overflow-y-auto px-4 py-5 font-mono text-[13px] leading-relaxed sm:px-6 sm:py-6 sm:text-[15px]"
       >
         <span className="sr-only">
-          Interactive terminal. Type a command and press enter.
+          Interactive terminal. Type a command and press enter, or use the
+          shortcuts below the terminal.
         </span>
 
         {entries.map((entry, index) => {
           if (entry.kind === "input") {
             return (
-              <div
-                key={index}
-                className="flex flex-wrap items-center gap-x-2"
-              >
+              <div key={index} className="flex flex-wrap items-center gap-x-2">
                 <ProgramPrompt prompt={entry.prompt} />
-                <span className="text-zinc-100">{entry.value}</span>
+                <span className="text-ink">{entry.value}</span>
               </div>
             );
           }
 
           return (
-            <div key={index} className="space-y-2">
+            <div key={index} className="space-y-1.5">
               {entry.kind === "command" && (
                 <div className="flex flex-wrap items-center gap-x-2">
-                  <Prompt />
-                  <span className="text-zinc-100">{entry.command}</span>
+                  <Prompt cwd={displayPath(entry.cwd, home)} />
+                  <span className="break-all text-ink">{entry.command}</span>
                 </div>
               )}
               {entry.output.map((line, lineIndex) => (
                 <div
                   key={lineIndex}
-                  className="whitespace-pre-wrap text-zinc-400"
+                  className={
+                    entry.kind === "startup" && lineIndex === 0
+                      ? "whitespace-pre-wrap text-peach"
+                      : "whitespace-pre-wrap break-words text-ink-muted"
+                  }
                 >
                   {line}
                 </div>
@@ -274,13 +335,11 @@ export function Terminal() {
         })}
 
         {completion && (
-          <div className="flex flex-wrap gap-x-4 gap-y-1 text-zinc-500">
+          <div className="flex flex-wrap gap-x-4 gap-y-1 text-ink-dim">
             {completion.candidates.map((candidate, index) => (
               <span
                 key={`${candidate.value}-${index}`}
-                className={
-                  index === completion.index ? "text-cyan-300" : undefined
-                }
+                className={index === completion.index ? "text-ember" : undefined}
               >
                 {candidate.value}
               </span>
@@ -291,19 +350,20 @@ export function Terminal() {
         <form
           onSubmit={(event) => {
             event.preventDefault();
-            submit();
+            if (!typing) submit(input);
           }}
-          className="flex items-center gap-x-2"
+          className="flex items-start gap-x-2"
         >
           {awaiting !== null ? (
             <ProgramPrompt prompt={awaiting} />
           ) : (
-            <Prompt />
+            <Prompt cwd={displayPath(cwd, home)} />
           )}
           <div className="relative min-w-0 flex-1">
             <input
               ref={inputRef}
               value={input}
+              readOnly={typing}
               onChange={(event) => {
                 const value = event.target.value;
                 setInput(value);
@@ -328,30 +388,105 @@ export function Terminal() {
               autoCapitalize="off"
               autoCorrect="off"
               spellCheck={false}
+              enterKeyHint="go"
               aria-label="Terminal input"
               className="absolute inset-0 w-full bg-transparent text-transparent caret-transparent outline-none"
             />
-            <span className="pointer-events-none whitespace-pre-wrap break-all text-zinc-100">
+            <span className="pointer-events-none whitespace-pre-wrap break-all text-ink">
               {input.slice(0, caretIndex)}
-              <span className="animate-cursor">
-                {input[caretIndex] ?? "\u00A0"}
+              <span className={typing ? "bg-ember text-dusk-900" : "animate-cursor"}>
+                {input[caretIndex] ?? " "}
               </span>
               {input.slice(caretIndex + 1)}
             </span>
           </div>
         </form>
       </div>
+
+      <nav
+        aria-label="Portfolio sections"
+        className="flex items-stretch border-t border-peach/[0.07] bg-dusk-900/80 font-mono text-[13px]"
+      >
+        <span className="hidden shrink-0 items-center bg-ember px-3 font-semibold text-dusk-900 sm:flex">
+          melon
+        </span>
+        <ul className="no-scrollbar flex min-w-0 flex-1 items-stretch overflow-x-auto max-sm:[mask-image:linear-gradient(90deg,#000_calc(100%-40px),transparent)]">
+          {SHORTCUTS.map((shortcut) => (
+            <li key={shortcut.id} className="flex">
+              <ShortcutButton
+                shortcut={shortcut}
+                active={active === shortcut.id}
+                disabled={shortcutsDisabled}
+                onRun={runShortcut}
+              />
+            </li>
+          ))}
+          <li className="ml-auto flex">
+            <ShortcutButton
+              shortcut={HELP_SHORTCUT}
+              active={active === HELP_SHORTCUT.id}
+              disabled={shortcutsDisabled}
+              onRun={runShortcut}
+            />
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 }
 
-function Prompt() {
+function ShortcutButton({
+  shortcut,
+  active,
+  disabled,
+  onRun,
+}: {
+  shortcut: Shortcut;
+  active: boolean;
+  disabled: boolean;
+  onRun: (shortcut: Shortcut) => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={(event) => {
+        event.currentTarget.scrollIntoView({
+          block: "nearest",
+          inline: "nearest",
+          behavior: "smooth",
+        });
+        onRun(shortcut);
+      }}
+      aria-disabled={disabled}
+      title={`Runs: ${shortcut.command}`}
+      aria-current={active ? "true" : undefined}
+      className={[
+        "relative flex h-11 shrink-0 items-center px-3 transition-colors duration-200 sm:h-9",
+        "focus-visible:-outline-offset-2",
+        active
+          ? "text-peach after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:bg-ember"
+          : "text-ink-muted hover:bg-peach/[0.06] hover:text-peach",
+        disabled ? "cursor-wait" : "cursor-pointer",
+      ].join(" ")}
+    >
+      {shortcut.label}
+    </button>
+  );
+}
+
+function displayPath(cwd: string, home: string): string {
+  if (cwd === home) return "~";
+  if (cwd.startsWith(`${home}/`)) return `~${cwd.slice(home.length)}`;
+  return cwd;
+}
+
+function Prompt({ cwd }: { cwd: string }) {
   return (
     <span className="shrink-0">
-      <span className="text-emerald-400">root@arch</span>
-      <span className="text-zinc-600">:</span>
-      <span className="text-cyan-400">~</span>
-      <span className="text-zinc-600">#</span>
+      <span className="text-ember">root@arch</span>
+      <span className="text-ink-dim">:</span>
+      <span className="text-mauve">{cwd}</span>
+      <span className="text-ink-dim">#</span>
     </span>
   );
 }
@@ -359,8 +494,8 @@ function Prompt() {
 function ProgramPrompt({ prompt }: { prompt: string }) {
   return (
     <span className="shrink-0">
-      <span className="text-cyan-300">{prompt}</span>
-      <span className="text-zinc-600">&gt;</span>
+      <span className="text-peach">{prompt}</span>
+      <span className="text-ink-dim">&gt;</span>
     </span>
   );
 }

@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 
-export function ProfileAvatar() {
+export function ProfileAvatar({ className }: { className?: string }) {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -14,6 +15,14 @@ export function ProfileAvatar() {
 
     const controller = new AbortController();
     const { signal } = controller;
+    const listeners = new AbortController();
+
+    audio.addEventListener("play", () => setPlaying(true), {
+      signal: listeners.signal,
+    });
+    audio.addEventListener("pause", () => setPlaying(false), {
+      signal: listeners.signal,
+    });
 
     const start = (event: Event) => {
       const target = event.target as HTMLElement | null;
@@ -28,7 +37,10 @@ export function ProfileAvatar() {
     window.addEventListener("keydown", start, { signal });
     window.addEventListener("touchstart", start, { signal });
 
-    return () => controller.abort();
+    return () => {
+      controller.abort();
+      listeners.abort();
+    };
   }, []);
 
   const toggle = () => {
@@ -44,39 +56,54 @@ export function ProfileAvatar() {
   return (
     <>
       <audio ref={audioRef} src="/bgm.mp3" loop preload="auto" />
-      <div
+      <button
+        type="button"
         data-bgm-toggle
-        role="button"
-        tabIndex={0}
-        aria-label="Toggle background music"
+        data-playing={playing}
+        aria-pressed={playing}
+        aria-label={playing ? "Pause background music" : "Play background music"}
+        title={playing ? "Pause music" : "Play music"}
         onClick={toggle}
-        onKeyDown={(event) => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            toggle();
-          }
-        }}
-        className="group relative cursor-pointer rounded-full outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60"
+        className={[
+          "group relative block cursor-pointer rounded-[10px] outline-offset-4",
+          className ?? "",
+        ].join(" ")}
       >
-        <div
+        <span className="relative block overflow-hidden rounded-[10px] shadow-[0_30px_60px_-24px_rgba(200,78,65,0.55),0_10px_24px_-12px_rgba(7,11,21,0.8)] ring-1 ring-peach/15 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1 group-hover:-rotate-1">
+          <Image
+            src="/image.png"
+            alt="melon's profile art: a dark, fluffy creature with ember-striped ears breathing a curl of fire in front of a pale sun"
+            width={1000}
+            height={1100}
+            priority
+            sizes="(min-width: 1024px) 270px, (min-width: 640px) 160px, 112px"
+            className="block h-auto w-full"
+          />
+        </span>
+
+        <span
           aria-hidden
-          className="absolute inset-0 scale-110 rounded-full bg-cyan-500/25 blur-2xl"
-        />
-        <div className="relative rounded-full bg-gradient-to-tr from-cyan-400 via-sky-500 to-indigo-500 p-[2px] shadow-[0_0_50px_-5px_rgba(34,211,238,0.5)] transition-transform duration-300 group-hover:scale-[1.03]">
-          <div className="rounded-full bg-[#05070a] p-1.5">
-            <div className="relative h-40 w-40 overflow-hidden rounded-full sm:h-48 sm:w-48 lg:h-56 lg:w-56">
-              <Image
-                src="/image.png"
-                alt="Portrait of melon"
-                width={1000}
-                height={1100}
-                priority
-                className="h-full w-full object-cover"
+          className="absolute bottom-2 right-2 flex h-7 items-center gap-1.5 rounded-full bg-dusk-900/85 px-2.5 text-ember shadow-[0_4px_12px_-4px_rgba(7,11,21,0.8)] ring-1 ring-peach/15 backdrop-blur-sm transition-colors group-hover:text-peach max-sm:bottom-1.5 max-sm:right-1.5 max-sm:h-6 max-sm:px-2"
+        >
+          <span className="flex h-3 items-end gap-[2px]">
+            {[0.45, 0.9, 0.65].map((rest, index) => (
+              <span
+                key={index}
+                className="eq-bar block h-full w-[3px] rounded-full bg-current"
+                style={
+                  {
+                    "--eq-rest": rest,
+                    animationDelay: `${index * -300}ms`,
+                  } as CSSProperties
+                }
               />
-            </div>
-          </div>
-        </div>
-      </div>
+            ))}
+          </span>
+          <span className="font-mono text-[11px] leading-none text-ink-muted max-sm:hidden">
+            {playing ? "on" : "off"}
+          </span>
+        </span>
+      </button>
     </>
   );
 }

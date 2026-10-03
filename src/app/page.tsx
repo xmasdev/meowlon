@@ -1,47 +1,61 @@
+import Link from "next/link";
 import { Terminal } from "@/components/terminal";
 import { DiagonalDivider } from "@/components/diagonal-divider";
-import Link from "next/link";
 import { Clock } from "@/components/clock";
 import { FallingLeaves } from "@/components/falling-leaves";
 import { ProfileAvatar } from "@/components/profile-avatar";
 
 export default function Home() {
   return (
-    <main className="relative flex min-h-screen w-full items-center justify-center overflow-hidden px-6 py-20 sm:px-10">
-      <div
-        aria-hidden
-        className="absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-cyan-500/20 blur-[120px]"
-      />
-      <div
-        aria-hidden
-        className="absolute -right-24 bottom-0 h-[28rem] w-[28rem] rounded-full bg-indigo-500/15 blur-[130px]"
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,#05070a_100%)]"
-      />
+    <main className="relative isolate min-h-dvh w-full overflow-hidden">
+      <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
+        <div className="dusk-sky animate-horizon absolute inset-0" />
+        <div className="dusk-sun animate-sun absolute left-1/2 top-[72vh] aspect-square w-[min(110vw,1100px)]" />
+        <div className="grain absolute inset-0" />
+      </div>
 
       <FallingLeaves />
 
-      <section className="relative z-10 flex w-full max-w-6xl flex-col items-center gap-10 md:flex-row md:justify-center md:gap-2 lg:gap-6">
-        <div className="flex shrink-0 flex-col items-center gap-3">
-          <ProfileAvatar />
-          <span className="font-mono text-xs tracking-wide text-zinc-500">
-            credit: <Link href="https://x.com/Terenry_" target="_blank" rel="noopener noreferrer">
-              @terenry
-            </Link>
-          </span>
-          <Clock />
-        </div>
+      <div className="relative z-10 mx-auto grid min-h-dvh w-full max-w-[1180px] content-center gap-8 px-4 py-10 sm:px-8 sm:py-14 lg:grid-cols-[270px_100px_minmax(0,1fr)] lg:items-center lg:gap-6 lg:py-16">
+        <header className="flex items-center gap-5 sm:gap-7 lg:flex-col lg:items-start lg:gap-0">
+          <figure className="w-28 shrink-0 sm:w-40 lg:w-full">
+            <ProfileAvatar />
+            <figcaption className="mt-2 hidden font-mono text-xs text-ink-dim lg:block">
+              art by{" "}
+              <Link
+                href="https://x.com/Terenry_"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-ink-muted underline decoration-ember/50 underline-offset-[3px] transition-colors hover:text-peach hover:decoration-ember"
+              >
+                @terenry
+              </Link>
+            </figcaption>
+          </figure>
 
-        <DiagonalDivider className="hidden h-[340px] w-[130px] shrink-0 md:block" />
-        <div
-          aria-hidden
-          className="h-px w-48 bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent md:hidden"
-        />
+          <div className="min-w-0 lg:mt-8">
+            <h1 className="font-display text-[clamp(2.5rem,9vw,4.25rem)] leading-[0.9] tracking-[-0.02em] text-peach">
+              melon
+            </h1>
+            <Clock className="mt-3 block text-lg sm:text-2xl lg:mt-5 lg:text-[1.75rem]" />
+            <p className="mt-2 font-mono text-xs text-ink-dim lg:hidden">
+              art by{" "}
+              <Link
+                href="https://x.com/Terenry_"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-ink-muted underline decoration-ember/50 underline-offset-[3px]"
+              >
+                @terenry
+              </Link>
+            </p>
+          </div>
+        </header>
+
+        <DiagonalDivider className="hidden h-[340px] w-[100px] lg:block" />
 
         <Terminal />
-      </section>
+      </div>
     </main>
   );
 }

@@ -17,10 +17,10 @@ export function DiagonalDivider({ className }: { className?: string }) {
             y2="10"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0" stopColor="#22d3ee" stopOpacity="0" />
-            <stop offset="0.45" stopColor="#22d3ee" stopOpacity="0.85" />
-            <stop offset="0.55" stopColor="#818cf8" stopOpacity="0.85" />
-            <stop offset="1" stopColor="#818cf8" stopOpacity="0" />
+            <stop offset="0" stopColor="#c84e41" stopOpacity="0" />
+            <stop offset="0.45" stopColor="#ee9560" stopOpacity="0.7" />
+            <stop offset="0.55" stopColor="#f4d8c2" stopOpacity="0.55" />
+            <stop offset="1" stopColor="#f4d8c2" stopOpacity="0" />
           </linearGradient>
           <filter
             id="divider-glow"
@@ -29,7 +29,7 @@ export function DiagonalDivider({ className }: { className?: string }) {
             width="200%"
             height="200%"
           >
-            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feGaussianBlur stdDeviation="1.5" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -43,7 +43,7 @@ export function DiagonalDivider({ className }: { className?: string }) {
           x2="140"
           y2="10"
           stroke="url(#divider-gradient)"
-          strokeWidth="1.5"
+          strokeWidth="1.25"
           strokeLinecap="round"
           filter="url(#divider-glow)"
         />
