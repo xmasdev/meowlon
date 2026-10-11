@@ -6,9 +6,15 @@ import styles from "./wuff.module.css";
 
 const APK_URL = "/wuff.apk";
 
+const description =
+  "Find furs near you, keep up with friends, and hang out in communities.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.meowlon.com"),
   title: "wuff",
-  description: "Find furs near you, keep up with friends, and hang out in communities.",
+  description,
+  openGraph: { title: "wuff", description, url: "/wuff", siteName: "wuff", type: "website" },
+  twitter: { card: "summary_large_image", title: "wuff", description },
 };
 
 export const viewport: Viewport = {
