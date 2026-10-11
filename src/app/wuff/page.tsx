@@ -110,7 +110,7 @@ export default function WuffPage() {
           </svg>
           Download for Android
         </a>
-        <span className={styles.meta}>wuff.apk · 53 MB</span>
+        <span className={styles.meta}>wuff.apk · v1.1.0 · 53 MB</span>
       </header>
 
       <section className={styles.shots} aria-label="Screenshots">
