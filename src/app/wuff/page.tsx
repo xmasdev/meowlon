@@ -8,7 +8,7 @@ const APK_URL = "/wuff.apk";
 
 export const metadata: Metadata = {
   title: "wuff",
-  description: "Find furs near you, keep up with friends, and hang out in Dens.",
+  description: "Find furs near you, keep up with friends, and hang out in communities.",
 };
 
 export const viewport: Viewport = {
@@ -17,8 +17,8 @@ export const viewport: Viewport = {
 
 const shots = [
   { src: "/wuff/welcome.jpg", alt: "Wuff welcome screen" },
-  { src: "/wuff/dens.jpg", alt: "Finding Dens to join" },
-  { src: "/wuff/den.jpg", alt: "A Den page" },
+  { src: "/wuff/dens.jpg", alt: "Finding communities to join" },
+  { src: "/wuff/den.jpg", alt: "A community page" },
   { src: "/wuff/meet.jpg", alt: "Planning a meet" },
   { src: "/wuff/profile.jpg", alt: "Editing a profile" },
 ];
@@ -88,7 +88,7 @@ export default function WuffPage() {
         <Mark />
         <h1 className={styles.word}>wuff</h1>
         <p className={styles.line}>
-          Find furs near you, keep up with friends, and hang out in Dens.
+          Find furs near you, keep up with friends, and hang out in communities.
         </p>
         <a className={styles.download} href={APK_URL} download="wuff.apk">
           <svg viewBox="0 0 24 24" aria-hidden>
