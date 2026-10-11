@@ -1,0 +1,245 @@
+.page {
+  --bg: #100f16;
+  --surface: #18161f;
+  --border: #2b2737;
+  --text: #f5f2fb;
+  --muted: #a7a1b8;
+  --faint: #6f6985;
+  --primary: #ff6a3d;
+  --primary-pressed: #e8572c;
+  --on-primary: #1c0d07;
+
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 72px 16px 32px;
+}
+
+.glow {
+  position: absolute;
+  top: -260px;
+  left: 50%;
+  width: 760px;
+  height: 560px;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(255, 106, 61, 0.22), transparent);
+  pointer-events: none;
+}
+
+.paw {
+  position: absolute;
+  opacity: 0.85;
+  pointer-events: none;
+  animation: bob 6s ease-in-out infinite;
+}
+
+.paw svg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes bob {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.mark {
+  width: 92px;
+  height: 92px;
+  filter: drop-shadow(0 10px 28px rgba(255, 106, 61, 0.35));
+  animation: wag 3.2s ease-in-out infinite;
+  transform-origin: 50% 90%;
+}
+
+@keyframes wag {
+  0%, 70%, 100% { rotate: 0deg; }
+  78% { rotate: -6deg; }
+  86% { rotate: 5deg; }
+  94% { rotate: -2deg; }
+}
+
+.word {
+  margin-top: 10px;
+  font-size: 64px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.line {
+  margin-top: 14px;
+  max-width: 340px;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.download {
+  margin-top: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 28px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: var(--on-primary);
+  font-weight: 700;
+  font-size: 17px;
+  text-decoration: none;
+  box-shadow: 0 10px 30px -8px rgba(255, 106, 61, 0.6);
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.download svg {
+  width: 20px;
+  height: 20px;
+}
+
+.download:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px -8px rgba(255, 106, 61, 0.7);
+}
+
+.download:active {
+  transform: translateY(0) scale(0.98);
+  background: var(--primary-pressed);
+}
+
+.download:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 4px;
+}
+
+.meta {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--faint);
+}
+
+/* Screenshots fan out on wide screens, scroll sideways on phones. */
+.shots {
+  position: relative;
+  margin-top: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0;
+  width: 100%;
+  max-width: 1100px;
+}
+
+.phone {
+  --off: calc(var(--i) - 2);
+  flex: none;
+  width: 210px;
+  margin: 0 -14px;
+  padding: 7px;
+  border-radius: 34px;
+  background: #0a090f;
+  border: 1px solid var(--border);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+  transform: translateY(calc(max(var(--off), -1 * var(--off)) * 28px)) rotate(calc(var(--off) * 4deg));
+  z-index: calc(10 - max(var(--off), -1 * var(--off)));
+  animation: rise 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(0.15s + max(var(--off), -1 * var(--off)) * 0.08s);
+  transition: translate 0.25s ease;
+}
+
+.phone:hover {
+  translate: 0 -10px;
+}
+
+.phone img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 390 / 844;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 27px;
+}
+
+@keyframes rise {
+  from { opacity: 0; translate: 0 24px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+.foot {
+  position: relative;
+  margin-top: auto;
+  padding-top: 56px;
+  font-size: 13px;
+  color: var(--faint);
+}
+
+.foot a {
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.foot a:hover {
+  color: var(--primary);
+}
+
+@media (max-width: 760px) {
+  .page {
+    padding-top: 56px;
+  }
+
+  .word {
+    font-size: 52px;
+  }
+
+  .shots {
+    justify-content: flex-start;
+    gap: 14px;
+    margin-top: 48px;
+    padding: 8px 16px 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    width: calc(100% + 32px);
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+
+  .shots::-webkit-scrollbar {
+    display: none;
+  }
+
+  .phone {
+    width: 190px;
+    margin: 0;
+    transform: none;
+    scroll-snap-align: center;
+  }
+
+  .paw {
+    opacity: 0.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paw,
+  .mark,
+  .hero,
+  .phone {
+    animation: none;
+  }
+}
