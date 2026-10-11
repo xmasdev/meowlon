@@ -4,8 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./wuff.module.css";
 
-const APK_URL =
-  "https://github.com/xmasdev/meowlon/releases/latest/download/wuff.apk";
+const APK_URL = "/wuff.apk";
 
 export const metadata: Metadata = {
   title: "wuff",
