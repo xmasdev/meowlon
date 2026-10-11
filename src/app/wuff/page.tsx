@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.meowlon.com"),
   title: "wuff",
   description,
+  icons: { icon: "/wuff/icon.png", apple: "/wuff/icon.png" },
   openGraph: { title: "wuff", description, url: "/wuff", siteName: "wuff", type: "website" },
   twitter: { card: "summary_large_image", title: "wuff", description },
 };
