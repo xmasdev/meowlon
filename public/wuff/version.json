@@ -1,6 +1,7 @@
 {
-  "version": "1.1.0",
+  "version": "1.1.1",
   "notes": [
+    "Hold a message to copy its text or its link",
     "Wuff now lets you know when a new version is out",
     "Photos, GIFs, stickers and voice messages stay on your phone once loaded, so they open faster",
     "Start a line with -# for small grey text"
