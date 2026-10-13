@@ -1,10 +1,11 @@
 {
-  "version": "1.1.1",
+  "version": "1.1.2",
   "notes": [
-    "Hold a message to copy its text or its link",
-    "Wuff now lets you know when a new version is out",
-    "Photos, GIFs, stickers and voice messages stay on your phone once loaded, so they open faster",
-    "Start a line with -# for small grey text"
+    "Hold a DM in your chat list to delete it from your phone. It comes back with the next message",
+    "Starting a voice message now stops the one already playing",
+    "Deleting your account no longer gets stuck",
+    "Smoother switching between tabs, and smoother scrolling in chats with lots of photos",
+    "The Me tab shows which version you have"
   ],
   "url": "https://meowlon.com/wuff"
 }
