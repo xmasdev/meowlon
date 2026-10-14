@@ -1,11 +1,9 @@
 {
-  "version": "1.1.2",
+  "version": "1.1.3",
   "notes": [
-    "Hold a DM in your chat list to delete it from your phone. It comes back with the next message",
-    "Starting a voice message now stops the one already playing",
-    "Deleting your account no longer gets stuck",
-    "Smoother switching between tabs, and smoother scrolling in chats with lots of photos",
-    "The Me tab shows which version you have"
+    "The message box in community chats no longer hides behind the keyboard",
+    "When signing in, the keyboard opens by itself for your email, code and birthday",
+    "Chats and communities pick up live updates again after the connection drops"
   ],
   "url": "https://meowlon.com/wuff"
 }
