@@ -61,7 +61,8 @@ export default function WuffPrivacy() {
         <li>
           <strong>Activity that makes features work</strong>: friends and friend requests, boops,
           blocks, mutes, reports you file, community memberships, meet RSVPs, read receipts, and
-          whether you are online or away (you can hide this).
+          whether you are online or away (you can hide this), and whether you chose to show adult
+          only communities (kept private, never shown to others).
         </li>
         <li>
           <strong>A push notification token</strong> for your phone, so Wuff can send you

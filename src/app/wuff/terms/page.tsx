@@ -28,6 +28,22 @@ export default function WuffTerms() {
           forbids it.</li>
       </ul>
 
+      <h2>All ages and Adult only communities</h2>
+      <p>
+        Every community is either <strong>All ages</strong> or <strong>Adult only</strong>.
+        Communities start as All ages, which means no sexual content. Adult only communities can
+        have sexually explicit content. They don&apos;t show up in Find, and nobody can join one,
+        until they turn on <strong>Show adult only communities</strong> in Me. Pictures and
+        stickers in them stay blurred until tapped.
+      </p>
+      <p>
+        Sexually explicit content is only allowed inside Adult only communities. It is never
+        allowed in profiles, profile pictures, banners, usernames, community names or pictures,
+        Nearby, the map, meets, or All ages communities. In private and group chats, only send it
+        to people who have clearly asked for it. Explicit content must be legal and involve only
+        consenting adults.
+      </p>
+
       <h2>What is not allowed</h2>
       <p>
         These rules apply everywhere in Wuff: profiles, pictures, stickers, chats, voice messages,
@@ -39,6 +55,10 @@ export default function WuffTerms() {
           <strong>Any sexual content involving minors</strong>, or anything that sexualises
           children or characters presented as children. This is reported to the authorities. See{" "}
           <Link href="/wuff/child-safety">child safety</Link>.
+        </li>
+        <li>
+          <strong>Sexual content in the wrong place</strong>: sexually explicit content outside
+          Adult only communities, or sending it to anyone who hasn&apos;t asked for it.
         </li>
         <li>
           <strong>Harassment and bullying</strong>: threats, intimidation, repeated unwanted
