@@ -92,9 +92,9 @@ export default function WuffPrivacy() {
           chats is sealed.
         </li>
         <li>
-          <strong>Map tiles</strong> are loaded from OpenStreetMap&apos;s tile servers, and the map
-          code from the unpkg content network. They see your phone&apos;s IP address and the map
-          area you look at, not who you are.
+          <strong>Maps</strong> are loaded from OpenFreeMap (map data from OpenStreetMap), and the
+          map code from the unpkg content network. They see your phone&apos;s IP address and the
+          map area you look at, not who you are.
         </li>
         <li>
           <strong>Link previews</strong>: when a message contains a link, your phone fetches that
