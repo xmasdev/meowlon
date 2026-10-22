@@ -181,6 +181,7 @@
 
 .foot {
   position: relative;
+  text-align: center;
   margin-top: auto;
   padding-top: 56px;
   font-size: 13px;
@@ -195,6 +196,14 @@
 
 .foot a:hover {
   color: var(--primary);
+}
+
+.legal {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 16px;
 }
 
 @media (max-width: 760px) {

@@ -123,6 +123,12 @@ export default function WuffPage() {
 
       <footer className={styles.foot}>
         made by <Link href="/">melon</Link>
+        <nav className={styles.legal} aria-label="Wuff policies">
+          <Link href="/wuff/privacy">Privacy</Link>
+          <Link href="/wuff/terms">Terms</Link>
+          <Link href="/wuff/child-safety">Child safety</Link>
+          <Link href="/wuff/delete-account">Delete account</Link>
+        </nav>
       </footer>
     </main>
   );
