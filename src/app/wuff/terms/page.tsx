@@ -4,14 +4,14 @@ import { WUFF_CONTACT, WuffLegalPage } from "@/components/wuff-legal";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.meowlon.com"),
-  title: "Terms · wuff",
+  title: "Terms and conditions · wuff",
   description: "The rules for using Wuff, and what happens when they are broken.",
   icons: { icon: "/wuff/icon.png" },
 };
 
 export default function WuffTerms() {
   return (
-    <WuffLegalPage title="Terms of use" updated="23 October 2026" path="/wuff/terms">
+    <WuffLegalPage title="Terms and conditions" updated="23 October 2026" path="/wuff/terms">
       <p>
         These terms are the agreement between you and melon (meowlon), who makes Wuff. By creating
         an account or using Wuff you agree to them and to the{" "}
@@ -93,6 +93,15 @@ export default function WuffTerms() {
         terms there. Content that may be illegal is reported to the authorities.
       </p>
 
+      <h2>Encrypted chats</h2>
+      <p>
+        The words in direct messages and group chats are end-to-end encrypted, so nobody at Wuff
+        can read them. These terms still apply inside them. When you report a message, your
+        phone sends that message to the moderators with the report, so they can act on it.
+        Photos, stickers and voice messages, and everything in communities, are not end-to-end
+        encrypted and can be reviewed by moderators when reported.
+      </p>
+
       <h2>Your content</h2>
       <p>
         You keep ownership of what you post. You give Wuff permission to store it, show it to the
@@ -122,6 +131,13 @@ export default function WuffTerms() {
         You can delete your account at any time from <strong>Me → Delete account</strong> in the
         app, or as described on <Link href="/wuff/delete-account">this page</Link>. We may end
         accounts that break these terms.
+      </p>
+
+      <h2>Your responsibility</h2>
+      <p>
+        You are responsible for what you post and for how you use Wuff. If your use of Wuff
+        breaks these terms or the law and someone makes a claim against melon because of it, you
+        agree to cover the reasonable costs of that claim, as far as the law allows.
       </p>
 
       <h2>Changes and contact</h2>

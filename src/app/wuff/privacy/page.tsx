@@ -45,18 +45,28 @@ export default function WuffPrivacy() {
         </li>
         <li>
           <strong>Messages and what you post</strong>: chat messages, photos, stickers and voice
-          messages, posts and rules in communities (Dens), and meets you plan or join. Messages are
-          stored on the server so they reach your chats on every device. They are encrypted on
-          their way to and from the server, but they are not end-to-end encrypted.
+          messages, posts and rules in communities (Dens), and meets you plan or join. The words
+          of direct messages and group chats are end-to-end encrypted: they are sealed on your
+          phone for the phones of the people in the chat, and the server only stores the sealed
+          copy, which nobody at Wuff can read. Photos, stickers and voice messages in those chats,
+          and everything in communities, are not end-to-end encrypted; they are stored on the
+          server and only shown to the people in the chat or community.
+        </li>
+        <li>
+          <strong>Encryption keys</strong>: each phone you use makes its own key pair. The secret
+          half never leaves the phone&apos;s secure storage; the public half is stored on the
+          server so others can seal messages for you. A new phone can&apos;t read messages sent
+          before it was set up.
         </li>
         <li>
           <strong>Activity that makes features work</strong>: friends and friend requests, boops,
           blocks, mutes, reports you file, community memberships, meet RSVPs, read receipts, and
-          whether you are online (you can hide this).
+          whether you are online or away (you can hide this).
         </li>
         <li>
           <strong>A push notification token</strong> for your phone, so Wuff can send you
-          notifications. Notifications can include the start of a message.
+          notifications. Notifications for encrypted chats carry the message sealed, and only your
+          phone opens it; notifications for communities can include the start of a message.
         </li>
       </ul>
       <p>
@@ -78,7 +88,8 @@ export default function WuffPrivacy() {
         </li>
         <li>
           <strong>Expo push service and Google Firebase Cloud Messaging</strong> deliver
-          notifications. They receive your push token and the notification&apos;s text.
+          notifications. They receive your push token and the notification, which for encrypted
+          chats is sealed.
         </li>
         <li>
           <strong>Map tiles</strong> are loaded from OpenStreetMap&apos;s tile servers, and the map
@@ -104,7 +115,8 @@ export default function WuffPrivacy() {
         Other members see your profile, a rounded distance, and what you post in chats and
         communities you are part of. People you block can&apos;t see you at all. Community
         moderators can remove posts in their community, and Wuff&apos;s moderators review reported
-        content and accounts. We share data with authorities only when the law requires it, or to
+        content and accounts. When you report a message, your phone sends what it shows you of
+        that message with the report, because the server can&apos;t read encrypted chats. We share data with authorities only when the law requires it, or to
         report child sexual abuse material.
       </p>
 
@@ -119,7 +131,8 @@ export default function WuffPrivacy() {
       <h2>Deleting your account and data</h2>
       <p>
         In the app, go to <strong>Me → Delete account</strong>. This removes your sign-in, profile,
-        pictures, messages, friendships, boops, blocks, location shares, reports and push tokens. A
+        pictures, messages, encryption keys, friendships, boops, blocks, location shares, reports and
+        push tokens. A
         group chat you started is handed to another member, and a community you own has to be
         handed over or deleted first. If you can&apos;t open the app, see{" "}
         <Link href="/wuff/delete-account">Delete your Wuff account</Link>.

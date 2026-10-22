@@ -53,7 +53,7 @@ export default function WuffDeleteAccount() {
         <li>Messages, photos, stickers and voice messages you sent.</li>
         <li>Friends, boops, blocks, mutes, community memberships and meet RSVPs.</li>
         <li>Your location and any live location shares.</li>
-        <li>Reports you filed and your notification tokens.</li>
+        <li>Your phones&apos; encryption keys, reports you filed and your notification tokens.</li>
       </ul>
 
       <h2>What is kept</h2>

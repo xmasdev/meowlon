@@ -8,7 +8,7 @@ export const legalStyles = styles;
 
 const pages = [
   { href: "/wuff/privacy", label: "Privacy policy" },
-  { href: "/wuff/terms", label: "Terms" },
+  { href: "/wuff/terms", label: "Terms and conditions" },
   { href: "/wuff/child-safety", label: "Child safety" },
   { href: "/wuff/delete-account", label: "Delete your account" },
 ];
