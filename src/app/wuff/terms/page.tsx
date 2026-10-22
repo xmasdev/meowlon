@@ -41,10 +41,6 @@ export default function WuffTerms() {
           <Link href="/wuff/child-safety">child safety</Link>.
         </li>
         <li>
-          <strong>Sexually explicit content</strong>: pornography, nudity shown for sexual
-          purposes, or sexual solicitation, including in drawings and fursona art.
-        </li>
-        <li>
           <strong>Harassment and bullying</strong>: threats, intimidation, repeated unwanted
           contact, or encouraging others to target someone.
         </li>
@@ -83,7 +79,7 @@ export default function WuffTerms() {
       <p>
         You can report any profile, message or community from inside the app, and block anyone so
         you no longer see each other. Reports are anonymous and are reviewed by Wuff&apos;s
-        moderators, usually within 24 hours. You can also report by email to{" "}
+        moderators, usually within 48 hours. You can also report by email to{" "}
         <a href={`mailto:${WUFF_CONTACT}`}>{WUFF_CONTACT}</a>.
       </p>
       <p>

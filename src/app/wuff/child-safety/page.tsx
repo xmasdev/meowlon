@@ -35,7 +35,7 @@ export default function WuffChildSafety() {
           create an account.</li>
         <li>Members can report any profile, message, picture or community from inside the app, and
           can block anyone.</li>
-        <li>Reports of child safety concerns are reviewed first, usually within 24 hours.</li>
+        <li>Reports of child safety concerns are reviewed first, usually within 48 hours.</li>
         <li>Accounts that break these standards are removed and can&apos;t return. Accounts found
           to belong to minors are deleted.</li>
       </ul>
