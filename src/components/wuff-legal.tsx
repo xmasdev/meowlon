@@ -11,6 +11,7 @@ const pages = [
   { href: "/wuff/terms", label: "Terms and conditions" },
   { href: "/wuff/child-safety", label: "Child safety" },
   { href: "/wuff/delete-account", label: "Delete your account" },
+  { href: "/wuff/delete-data", label: "Delete your data" },
 ];
 
 // The Wuff logo: an orange speech-bubble dog head with a paw print.
