@@ -1,9 +1,12 @@
 {
-  "version": "1.1.3",
+  "version": "1.3.0",
   "notes": [
-    "The message box in community chats no longer hides behind the keyboard",
-    "When signing in, the keyboard opens by itself for your email, code and birthday",
-    "Chats and communities pick up live updates again after the connection drops"
+    "Wuff is now on Google Play: updates come from there from now on",
+    "Private and group chats are end-to-end encrypted",
+    "React to messages: tap twice for a heart, or hold a message for more",
+    "Send short videos, up to 15 seconds",
+    "A new map, and you can report any message",
+    "Communities can be All ages or Adult only"
   ],
-  "url": "https://meowlon.com/wuff"
+  "url": "https://play.google.com/store/apps/details?id=com.wuff"
 }
