@@ -52,8 +52,8 @@ export default function WuffPrivacy() {
           copy, which nobody at Wuff can read. Photos, videos, stickers, voice messages and
           reactions in those chats, and everything in communities, are not end-to-end encrypted;
           they are stored on the server and only shown to the people in the chat or community.
-          Before a video is sent, your phone removes the place and time it was filmed from the
-          file.
+          Before a video is sent, your phone removes where it was filmed and what phone filmed it
+          from the file.
         </li>
         <li>
           <strong>Encryption keys</strong>: each phone you use makes its own key pair. The secret
