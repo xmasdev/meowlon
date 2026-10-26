@@ -26,9 +26,12 @@ export default function WuffDeleteData() {
       <h2>In the app</h2>
       <ul>
         <li>
-          <strong>Messages, photos and voice messages</strong>: hold a message you sent and tap{" "}
-          <strong>Delete message</strong>. Its words and attachments are wiped for everyone
-          straight away.
+          <strong>Messages, photos, videos and voice messages</strong>: hold a message you sent and
+          tap <strong>Delete message</strong>. Its words, attachments and reactions are wiped for
+          everyone straight away.
+        </li>
+        <li>
+          <strong>Reactions</strong>: tap your reaction under a message to take it back.
         </li>
         <li>
           <strong>Stickers</strong>: open the sticker panel, hold a sticker and tap{" "}
@@ -68,7 +71,7 @@ export default function WuffDeleteData() {
       <h2>What is kept</h2>
       <ul>
         <li>
-          Files from messages you deleted (photos and voice messages) can no longer be seen by
+          Files from messages you deleted (photos, videos and voice messages) can no longer be seen by
           anyone, but stay in storage until you delete your account or ask us by email to remove
           them.
         </li>

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function WuffPrivacy() {
   return (
-    <WuffLegalPage title="Privacy policy" updated="23 October 2026" path="/wuff/privacy">
+    <WuffLegalPage title="Privacy policy" updated="26 October 2026" path="/wuff/privacy">
       <p>
         Wuff is a social app for adult furries, made by melon (meowlon). This policy says what
         Wuff collects, why, who can see it, and how to delete it. It covers the Wuff app for
@@ -44,13 +44,16 @@ export default function WuffPrivacy() {
           you stop it.
         </li>
         <li>
-          <strong>Messages and what you post</strong>: chat messages, photos, stickers and voice
-          messages, posts and rules in communities (Dens), and meets you plan or join. The words
+          <strong>Messages and what you post</strong>: chat messages, photos, videos, stickers,
+          voice messages and reactions, posts and rules in communities (Dens), and meets you plan
+          or join. The words
           of direct messages and group chats are end-to-end encrypted: they are sealed on your
           phone for the phones of the people in the chat, and the server only stores the sealed
-          copy, which nobody at Wuff can read. Photos, stickers and voice messages in those chats,
-          and everything in communities, are not end-to-end encrypted; they are stored on the
-          server and only shown to the people in the chat or community.
+          copy, which nobody at Wuff can read. Photos, videos, stickers, voice messages and
+          reactions in those chats, and everything in communities, are not end-to-end encrypted;
+          they are stored on the server and only shown to the people in the chat or community.
+          Before a video is sent, your phone removes the place and time it was filmed from the
+          file.
         </li>
         <li>
           <strong>Encryption keys</strong>: each phone you use makes its own key pair. The secret

@@ -50,7 +50,7 @@ export default function WuffDeleteAccount() {
       <ul>
         <li>Your sign-in, email address and date of birth.</li>
         <li>Your profile, profile picture, banner and links.</li>
-        <li>Messages, photos, stickers and voice messages you sent.</li>
+        <li>Messages, photos, videos, stickers, voice messages and reactions you sent.</li>
         <li>Friends, boops, blocks, mutes, community memberships and meet RSVPs.</li>
         <li>Your location and any live location shares.</li>
         <li>Your phones&apos; encryption keys, reports you filed and your notification tokens.</li>

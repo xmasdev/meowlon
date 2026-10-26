@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function WuffTerms() {
   return (
-    <WuffLegalPage title="Terms and conditions" updated="23 October 2026" path="/wuff/terms">
+    <WuffLegalPage title="Terms and conditions" updated="26 October 2026" path="/wuff/terms">
       <p>
         These terms are the agreement between you and melon (meowlon), who makes Wuff. By creating
         an account or using Wuff you agree to them and to the{" "}
@@ -33,8 +33,8 @@ export default function WuffTerms() {
         Every community is either <strong>All ages</strong> or <strong>Adult only</strong>.
         Communities start as All ages, which means no sexual content. Adult only communities can
         have sexually explicit content. They don&apos;t show up in Find, and nobody can join one,
-        until they turn on <strong>Show adult only communities</strong> in Me. Pictures and
-        stickers in them stay blurred until tapped.
+        until they turn on <strong>Show adult only communities</strong> in Me. Pictures, videos
+        and stickers in them stay blurred until tapped.
       </p>
       <p>
         Sexually explicit content is only allowed inside Adult only communities. It is never
@@ -114,8 +114,8 @@ export default function WuffTerms() {
         The words in direct messages and group chats are end-to-end encrypted, so nobody at Wuff
         can read them. These terms still apply inside them. When you report a message, your
         phone sends that message to the moderators with the report, so they can act on it.
-        Photos, stickers and voice messages, and everything in communities, are not end-to-end
-        encrypted and can be reviewed by moderators when reported.
+        Photos, videos, stickers, voice messages and reactions, and everything in communities,
+        are not end-to-end encrypted and can be reviewed by moderators when reported.
       </p>
 
       <h2>Your content</h2>
